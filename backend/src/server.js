@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import { connectDB } from "./lib/db.js";
 import { clerkMiddleware } from "@clerk/express";
+import fileUpload from "express-fileupload";
+import path from "path";
 
 import userRoutes from "./routes/user.route.js";
 import authRoutes from "./routes/auth.route.js";
@@ -12,6 +14,7 @@ import statRoutes from "./routes/stat.route.js";
 
 dotenv.config(); //you need this to import the PORT from .env
 
+const __dirname = path.resolve();
 const app = express();
 const PORT = process.env.PORT;
 
@@ -19,6 +22,16 @@ app.use(express.json()); //! to parse req.body
 
 // this adds auth to request object(which user is logged in, sending the request)
 app.use(clerkMiddleware());
+app.use(
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: path.join(__dirname, "tmp"), //whenever we upload an image or audio it will create a temporary folder under the src
+    createParentPath: true, //if the folder doesn't exists, it creates it
+    limits: {
+      fileSize: 10 * 1024 * 1024, // 10MB  max file size
+    },
+  })
+);
 
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
