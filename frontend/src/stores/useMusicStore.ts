@@ -7,8 +7,10 @@ interface MusicStore {
 	albums: Album[];
 	isLoading: boolean;
 	error: string | null;
+  currentAlbum: null,
 
 	fetchAlbums: () => Promise<void>;
+  fetchAlbumById: (id: string) => Promise<void>;
 	
 }
 
@@ -18,8 +20,9 @@ export const useMusicStore = create<MusicStore>((set) => ({
   songs: [],
   isLoading: false,
   error: null,
+  currentAlbum: null,
   
-
+//* Fetches all albums from the API
   fetchAlbums: async () => {
     //data fatching logic...
     set({
@@ -36,4 +39,18 @@ export const useMusicStore = create<MusicStore>((set) => ({
         set({ isLoading: false });
     }
   },
+
+  //* Fetches a specific album by ID
+  fetchAlbumById: async(id) => {
+    set({isLoading: true, error: null})
+
+    try {
+      const response = await axiosInstance.get(`/albums/${id}`)
+      set({currentAlbum: response.data}); // Only updates currentAlbum. albums array remains unchanged
+    } catch (error: any) {
+      set({error: error.response.data.message}) //updating the state current album
+    } finally {
+      set({isLoading: false})
+    }
+  }
 }));
