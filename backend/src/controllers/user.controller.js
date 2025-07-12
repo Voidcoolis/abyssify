@@ -8,7 +8,8 @@ try {
    
     // Find all users in the database EXCEPT the current user
     //! $ne means "not equal" in MongoDB query language
-    const users = await User.find({clerkId:{ $ne: currentUserId } })
+    const users = await User.find({clerkId:{ $ne: currentUserId }})
+    res.status(200).json(users);
 } catch (error) {
     next(error);
 }
