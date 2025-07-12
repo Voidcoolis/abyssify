@@ -1,4 +1,5 @@
 import { axiosInstance } from "@/lib/axios";
+import { useAuthStore } from "@/stores/useAuthStore";
 import { useAuth } from "@clerk/clerk-react";
 import { Loader } from "lucide-react";
 import React, { useEffect, useState } from "react";
@@ -16,6 +17,7 @@ const updateApiToken = (token: string | null) => {
 const AuthProvider = ({children} : {children: React.ReactNode}) => {
   const { getToken } = useAuth(); // Get the getToken function from Clerk's useAuth hook
   const [loading, setLoading] = useState(true);
+  const {checkAdminStatus} = useAuthStore();
 
   useEffect(() => {
     //* Initialize authentication by getting the current user's token
@@ -23,6 +25,12 @@ const AuthProvider = ({children} : {children: React.ReactNode}) => {
       try {
         const token = await getToken();
         updateApiToken(token); // Update Axios headers with the token (or remove if none)
+
+        //! if we have the token this check if the user is admin or not
+        if (token) {
+          await checkAdminStatus();
+        }
+
       } catch (error: any) {
         updateApiToken(null); // we know the user is not authentificated
         console.log("Error in auth provider", error);

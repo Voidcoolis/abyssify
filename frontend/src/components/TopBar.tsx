@@ -2,10 +2,14 @@ import { SignedOut, UserButton } from "@clerk/clerk-react";
 import { LayoutDashboardIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import SignInOAuthButtons from "./SignInOAuthButtons";
+import { useAuthStore } from "@/stores/useAuthStore";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "./ui/button";
 
 const TopBar = () => {
     // Check if current user is an admin via Zustand store
-const isAdmin = false;
+    const {isAdmin} = useAuthStore();
+    console.log({ isAdmin });
 
   return (
     <div className='flex items-center justify-between p-4 sticky top-0 bg-zinc-900/75 backdrop-blur-md z-10'>
@@ -17,7 +21,7 @@ const isAdmin = false;
         <div className='flex items-center gap-4'>
             {/* Conditionally show Admin Dashboard link if user is admin */}
             {isAdmin && (
-                <Link to={"/admin"}>
+                <Link to={"/admin"} className={cn(buttonVariants({ variant: "outline" }))}>
                     <LayoutDashboardIcon className='size-4  mr-2' />
                     Admin Dashboard
                 </Link>
