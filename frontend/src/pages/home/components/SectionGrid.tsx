@@ -1,6 +1,7 @@
 import type { Song } from "@/types";
 import SectionGridSkeleton from "./SectionGridSkeleton";
 import { Button } from "@/components/ui/button";
+import PlayButton from "./PlayButton";
 
 type SectionGridProps = {
   title: string;
@@ -38,7 +39,8 @@ const SectionGrid = ({ songs, title, isLoading }: SectionGridProps) => {
 									group-hover:scale-105"
                 />
               </div>
-              {/* todo: add play button here  */}
+              {/* play button added to the made-for-you & trending section  */}
+              <PlayButton song={song} />
             </div>
             {/* adds title & artist to the songs */}
             <h3 className="font-medium mb-2 truncate">{song.title}</h3>

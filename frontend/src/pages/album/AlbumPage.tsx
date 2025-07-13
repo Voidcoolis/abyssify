@@ -85,7 +85,7 @@ const AlbumPage = () => {
 							<Button
 								onClick={handlePlayAlbum}
 								size='icon'
-								className='w-14 h-14 rounded-full bg-green-500 hover:bg-green-400 
+								className='w-14 h-14 rounded-full bg-red-600 hover:bg-red-500 
                 hover:scale-105 transition-all'
 							>
 								{isPlaying && currentAlbum?.songs.some((song) => song._id === currentSong?._id) ? (
@@ -121,7 +121,7 @@ const AlbumPage = () => {
                       >
                         <div className="flex items-center justify-center">
                           {isCurrentSong && isPlaying ? (
-                            <div className='size-4 text-green-500'>♫</div>
+                            <div className='size-4 text-red-500'>♫</div>
                           ) : (
                             <span className="group-hover:hidden">
                             {index + 1}
