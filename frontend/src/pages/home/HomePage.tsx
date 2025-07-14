@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import FeaturedSection from "./components/FeaturedSection";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import SectionGrid from "./components/SectionGrid";
+import { usePlayerStore } from "@/stores/usePlayerStore";
 
 const HomePage = () => {
   const {
@@ -16,12 +17,24 @@ const HomePage = () => {
     trendingSongs,
   } = useMusicStore();
 
+  const { initializeQueue } = usePlayerStore();
 
+   //* Effect to fetch songs when component mounts
   useEffect(() => {
 		fetchFeaturedSongs();
 		fetchMadeForYouSongs();
 		fetchTrendingSongs();
 	}, [fetchFeaturedSongs, fetchMadeForYouSongs, fetchTrendingSongs]);
+
+   //* Effect to initialize playback queue when songs are loaded
+   // So basically if we can play all songs displayed on the homepage & if we press next and previous it will work
+  useEffect(() => {
+    // Only proceed if all song categories have data
+		if (madeForYouSongs.length > 0 && featuredSongs.length > 0 && trendingSongs.length > 0) {
+			const allSongs = [...featuredSongs, ...madeForYouSongs, ...trendingSongs]; // Combine all songs into one array
+			initializeQueue(allSongs); // Initialize player queue with combined songs
+		}
+	}, [initializeQueue, madeForYouSongs, trendingSongs, featuredSongs]);
 
   return (
     <main className='rounded-md overflow-hidden h-full bg-gradient-to-b from-zinc-800 to-zinc-900'>
