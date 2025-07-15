@@ -19,6 +19,13 @@ export interface Album {
 	songs: Song[];
 }
 
+export interface Stats {
+	totalSongs: number;
+	totalAlbums: number;
+	totalUsers: number;
+	totalArtists: number;
+}
+
 export interface User {
 	_id: string;
 	clerkId: string;

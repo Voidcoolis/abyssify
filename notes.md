@@ -78,3 +78,7 @@ To change the color theme of the playback, copy the tailwind code in the shadcn(
 
 * This component works with the AudioPlayer component (which handles the actual <audio> element) to provide a complete playback control interface that stays in sync with the audio playback.
 
+# AdminPage
+2 different views for the admin page. One for the songs and one for the albums
+
+
