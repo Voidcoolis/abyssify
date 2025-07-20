@@ -6,7 +6,7 @@ import { User } from "../models/user.model.js"
 export const getStats = async (req, res, next) => {
     try {
          //! Use Promise.all to execute multiple database queries in parallel for better performance
-        const [totalSongs, totalAlbums, totalUsers] =  await Promise.all([
+        const [totalSongs, totalAlbums, totalUsers, uniqueArtists] =  await Promise.all([
             Song.countDocuments(), // 1. Count total number of songs in the database
             Album.countDocuments(), // 2. Count total number of albums in the database
             User.countDocuments(), // 3. Count total number of users in the database

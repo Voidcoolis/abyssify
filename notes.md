@@ -81,4 +81,26 @@ To change the color theme of the playback, copy the tailwind code in the shadcn(
 # AdminPage
 2 different views for the admin page. One for the songs and one for the albums
 
+# AddSongDialog
 
+append means "to add something to the end of an existing structure". It's used to:
+
+ 1. Add new items to lists/arrays
+ 2. Add content to files
+ 3. Add data to form submissions (like in this code)
+
+??? Why it's used here ???
+1. Builds a multipart form that can contain:
+  - Text fields (title, artist)
+  - File uploads (audio, image)
+2. Prepares for HTTP POST to the server
+3. Structures data so the server understands each piece
+
+Real-World Analogy
+Imagine packing a box (FormData) for shipping:
+
+- append is like putting labeled items in the box:
+
+    - "Title" → "My Awesome Song" (text)
+    - "AudioFile" → song.mp3 (file)
+    - "ImageFile" → cover.jpg (file)
