@@ -104,3 +104,26 @@ Imagine packing a box (FormData) for shipping:
     - "Title" → "My Awesome Song" (text)
     - "AudioFile" → song.mp3 (file)
     - "ImageFile" → cover.jpg (file)
+
+# Socket.io
+
+- Listen to events : 
+    - socket.on
+- Send events : 
+    - io.emit(server --> client)
+    - socket.emit(client --> server)
+
+## Socket.IO is a JavaScript library that enables real-time, bidirectional communication between web clients (browsers) and servers. It's built on top of WebSockets but provides additional features like fallback options and automatic reconnection.
+
+Another alternative is **SignalR**
+
+## Socket.IO vs. SignalR
+- *Socket.IO* is a JavaScript library for real-time web apps (Node.js + browsers). It uses WebSockets with HTTP fallbacks, supports manual room management, and is ideal for
+cross-platform apps.
+
+- *SignalR* is Microsoft’s .NET alternative, deeply integrated with ASP.NET. It offers automatic reconnection, built-in group handling, and scales easily with Azure/Redis.
+
+Pick *Socket.IO* for JS/TS stacks (React, Vue, Node).
+Pick *SignalR* for .NET backends (C#, ASP.NET Core).
+
+Both enable real-time features like chat, notifications, and live updates.
