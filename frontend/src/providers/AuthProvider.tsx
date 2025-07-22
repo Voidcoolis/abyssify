@@ -1,5 +1,6 @@
 import { axiosInstance } from "@/lib/axios";
 import { useAuthStore } from "@/stores/useAuthStore";
+import { useChatStore } from "@/stores/useChatStore";
 import { useAuth } from "@clerk/clerk-react";
 import { Loader } from "lucide-react";
 import React, { useEffect, useState } from "react";
@@ -15,9 +16,10 @@ const updateApiToken = (token: string | null) => {
 
 //* AuthProvider component that wraps the application to handle authentication
 const AuthProvider = ({children} : {children: React.ReactNode}) => {
-  const { getToken } = useAuth(); // Get the getToken function from Clerk's useAuth hook
+  const { getToken, userId } = useAuth(); // Get the getToken function from Clerk's useAuth hook
   const [loading, setLoading] = useState(true);
   const {checkAdminStatus} = useAuthStore();
+  const { initSocket, disconnectSocket } = useChatStore();
 
   useEffect(() => {
     //* Initialize authentication by getting the current user's token
@@ -29,6 +31,9 @@ const AuthProvider = ({children} : {children: React.ReactNode}) => {
         //! if we have the token this check if the user is admin or not
         if (token) {
           await checkAdminStatus();
+
+          // init socket
+					if (userId) initSocket(userId);
         }
 
       } catch (error: any) {
@@ -39,7 +44,8 @@ const AuthProvider = ({children} : {children: React.ReactNode}) => {
       }
     };
     initAuth();
-  }, [getToken]); // Dependency: Only re-run if getToken changes
+    return () => disconnectSocket(); //cleanup
+  }, [getToken, userId, checkAdminStatus, initSocket, disconnectSocket]); // Dependency: Only re-run if getToken changes
 
   if (loading)
     return (

@@ -129,7 +129,7 @@ Pick *SignalR* for .NET backends (C#, ASP.NET Core).
 
 Both enable real-time features like chat, notifications, and live updates.
 
-## socket.js
+## socket.js - Backend
 
 1. Initialization:
 - Creates Socket.io server attached to HTTP server
@@ -166,3 +166,40 @@ Both enable real-time features like chat, notifications, and live updates.
 - Uses *io.to(socketId).emit()* for targeted messages
 
 This implementation provides a complete real-time communication system with presence tracking, activity updates, and messaging - all synchronized across connected clients.
+
+## Socket.io Frontend implementation
+
+- npm i socket.io-client
+
+# useChatStore.ts
+1. State Management:
+- Uses Zustand for centralized state
+- Tracks users, messages, online status, and activities
+- Manages socket connection state
+
+2. Socket.IO Integration:
+- Connects only when authenticated (*autoConnect: false*)
+- Handles real-time events:
+    - User presence (online/offline)
+    - Message delivery
+    - Activity updates
+
+3. Data Structures:
+- *Set* for online users (ensures unique values)
+- *Map* for user activities (key-value pairs)
+- Arrays for users and messages
+
+4. API Interaction:
+- Uses *axiosInstance* for HTTP requests
+- Fetches initial user list and message history
+- Handles loading and error states
+
+5. Message Flow:
+- Outgoing: *sendMessage* emits socket event
+- Incoming: Socket events update state automatically
+- Persistence: Messages are stored in the messages array
+
+6. Optimizations:
+- Prevents duplicate socket connections
+- Efficient updates using Set/Map
+- Clean disconnect handling
