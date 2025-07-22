@@ -52,7 +52,7 @@ const AlbumPage = () => {
         <div className="relative min-h-full">
           {/* bg gradient */}
           <div
-            className="absolute inset-0 bg-gradient-to-b from-red-900/90 via-black/90
+            className="absolute inset-0 bg-gradient-to-b from-yellow-900/90 via-black/90
                     to-black pointer-events-none"
             aria-hidden="true"
           />
@@ -85,7 +85,7 @@ const AlbumPage = () => {
 							<Button
 								onClick={handlePlayAlbum}
 								size='icon'
-								className='w-14 h-14 rounded-full bg-red-600 hover:bg-red-500 
+								className='w-14 h-14 rounded-full bg-yellow-600 hover:bg-yellow-500 
                 hover:scale-105 transition-all'
 							>
 								{isPlaying && currentAlbum?.songs.some((song) => song._id === currentSong?._id) ? (
@@ -121,7 +121,7 @@ const AlbumPage = () => {
                       >
                         <div className="flex items-center justify-center">
                           {isCurrentSong && isPlaying ? (
-                            <div className='size-4 text-red-500'>♫</div>
+                            <div className='size-4 text-yellow-500'>♫</div>
                           ) : (
                             <span className="group-hover:hidden">
                             {index + 1}
