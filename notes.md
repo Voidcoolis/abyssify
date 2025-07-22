@@ -203,3 +203,39 @@ This implementation provides a complete real-time communication system with pres
 - Prevents duplicate socket connections
 - Efficient updates using Set/Map
 - Clean disconnect handling
+
+# ChatPage
+
+1. Layout Structure:
+- *Topbar*: Fixed header at the top
+- Two-column grid layout:
+    - Left: *UsersList* (sidebar)
+    - Right: Chat messages and input
+
+2. Data Flow:
+- Fetches users on mount using *useEffect*
+- Fetches messages when *selectedUser* changes
+- Uses *useChatStore* for state management
+
+3. Message Display:
+- Messages are mapped and styled differently based on sender
+- Current user's messages appear on the right (green)
+- Other user's messages appear on the left (dark)
+
+4. Time Formatting:
+- *formatTime* converts ISO dates to readable format (e.g., "2:30 PM")
+
+5. Responsive Design:
+- Sidebar width changes between mobile (80px) and desktop (300px)
+- Dynamic height calculations for proper scrolling
+
+6. Empty State:
+- Shows *NoConversationPlaceholder* when no user is selected
+- Includes Spotify logo with subtle animation
+
+7. Optimizations:
+- Uses *ScrollArea* for performant message scrolling
+- Avatar images are optimized with the *Avatar* component
+- Conditional rendering prevents unnecessary renders
+
+This component provides a complete chat interface with proper message threading, responsive layout, and clean state management.
