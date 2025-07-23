@@ -23,8 +23,8 @@ interface ChatStore {
   setSelectedUser: (user: User | null) => void; // Set current chat user
 }
 
-// Determine base URL based on environment
-  const baseURL ="http://localhost:5000";
+// Determine base URL based on environment(dynamic for development and production)
+  const baseURL = import.meta.env.MODE === "development" ? "http://localhost:5000/api" : "/"
 
   // Create socket instance with configuration
   const socket = io(baseURL, {

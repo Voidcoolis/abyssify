@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/table";
 import { useMusicStore } from "@/stores/useMusicStore";
 import { Calendar, Trash2 } from "lucide-react";
-import React from "react";
 
 const SongsTable = () => {
   const { songs, isLoading, error, deleteSong } = useMusicStore();
