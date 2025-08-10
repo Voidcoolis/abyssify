@@ -78,7 +78,7 @@ if (process.env.NODE_ENV === "production") {
   // Serve static files from frontend's dist directory
 	app.use(express.static(path.join(__dirname, "../frontend/dist")));
    // Handle all other routes by serving the frontend's index.html
-	app.get("*", (req, res) => {    //   "*" means any other routes
+	app.get(/.*/, (req, res) => {    //   "*" means any other routes
 		res.sendFile(path.resolve(__dirname, "../frontend", "dist", "index.html"));
 	});
 }
